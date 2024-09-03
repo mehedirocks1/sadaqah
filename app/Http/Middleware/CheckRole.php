@@ -8,14 +8,22 @@ use Illuminate\Support\Facades\Auth;
 
 class CheckRole
 {
-    public function handle(Request $request, Closure $next, $roleName)
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string  $role
+     * @return mixed
+     */
+    public function handle(Request $request, Closure $next, string $role)
     {
-        $user = Auth::user();
-
-        if ($user && $user->hasRole($roleName)) {
+        // Check if the authenticated user has the required role
+        if (Auth::check() && Auth::user()->role === $role) {
             return $next($request);
         }
 
-        return redirect('/'); // Redirect or handle unauthorized access
+        // If the user does not have the required role, redirect to home or error page
+        return redirect('/')->with('error', 'You do not have access to this section.');
     }
 }

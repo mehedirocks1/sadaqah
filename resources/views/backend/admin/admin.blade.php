@@ -15,10 +15,15 @@
             <div class="p-4">
                 <h1 class="text-2xl font-bold mb-6">Admin Dashboard</h1>
                 <ul>
-                    <li><a href="{{ route('admin.home') }}" class="block px-4 py-2 hover:bg-gray-700">Dashboard</a></li>
-                    <li><a href="{{ route('admin.users') }}" class="block px-4 py-2 hover:bg-gray-700">Users</a></li>
-                    <li><a href="{{ route('admin.settings') }}" class="block px-4 py-2 hover:bg-gray-700">Settings</a></li>
-                    <!-- Add more admin menu items here -->
+                <li><a href="{{ route('admin.home') }}" class="block px-4 py-2 hover:bg-gray-700">Dashboard</a></li>
+<li><a href="{{ route('admin.users') }}" class="block px-4 py-2 hover:bg-gray-700">Users</a></li>
+<li><a href="{{ route('admin.settings') }}" class="block px-4 py-2 hover:bg-gray-700">Settings</a></li>
+<li class="mt-6"><span class="block px-4 py-2 font-semibold text-gray-400">Profile</span></li>
+<li><a href="{{ route('admin.profile.edit') }}" class="block px-4 py-2 hover:bg-gray-700">Edit Profile</a></li>
+<li><a href="{{ route('admin.profile.update') }}" class="block px-4 py-2 hover:bg-gray-700">Update Information</a></li>
+<li><a href="{{ route('admin.profile.update-password') }}" class="block px-4 py-2 hover:bg-gray-700">Update Password</a></li>
+<li><a href="{{ route('admin.profile.delete') }}" class="block px-4 py-2 hover:bg-gray-700">Delete Account</a></li>
+
                 </ul>
             </div>
         </aside>

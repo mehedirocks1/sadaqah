@@ -1,4 +1,4 @@
-@extends('backend.admin')
+@extends('backend.admin.admin')
 
 @section('title', 'Settings')
 

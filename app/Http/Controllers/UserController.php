@@ -49,16 +49,28 @@ class UserController extends Controller
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->intended('/');
+            // Redirect based on role
+            $user = Auth::user();
+            if ($user->role_id === 1) { // User role
+                return redirect()->route('user.dashboard');
+            } elseif ($user->role_id === 2) { // Admin role
+                return redirect()->route('admin.home');
+            }
         }
 
         return back()->withErrors(['email' => 'Invalid credentials']);
     }
 
+    // Show user dashboard
+    public function showDashboard()
+    {
+        return view('frontend.Users.dashboard');// Adjust path to your dashboard view
+    }
+
     // Show user profile
     public function showProfile()
     {
-        return view('profile');
+        return view('frontend.Users.profile'); // Adjust path to your profile view
     }
 
     // Update user profile
@@ -79,7 +91,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('profile');
+        return redirect()->route('user.profile');
     }
 
     // Delete user account

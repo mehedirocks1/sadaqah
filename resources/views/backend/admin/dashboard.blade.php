@@ -1,6 +1,9 @@
-@extends('backend.admin')
+
+@extends('backend.admin.admin')
+ <!-- Updated to match the layout file name -->
 
 @section('title', 'Dashboard')
+
 
 @section('content')
     <div class="container mx-auto">

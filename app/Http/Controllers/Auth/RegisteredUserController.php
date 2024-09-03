@@ -28,23 +28,38 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+{
+    // Validate the incoming request data
+    $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+    // Create a new user and assign the default role as 'User'
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'role' => 'User', // Assign default role
+    ]);
 
-        event(new Registered($user));
+    // Fire the Registered event
+    event(new Registered($user));
 
-        Auth::login($user);
+    // Log the user in immediately after registration
+    Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+    // Role-based redirection
+    if (Auth::user()->role === 'Admin') {
+        // Redirect admin users to the admin home/dashboard
+        return redirect()->route('admin.home');
+    } elseif (Auth::user()->role === 'User') {
+        // Redirect regular users to their profile page
+        return redirect()->route('profile');
     }
+
+    // Fallback redirect if the role doesn't match
+    return redirect()->route('dashboard');
+}
 }

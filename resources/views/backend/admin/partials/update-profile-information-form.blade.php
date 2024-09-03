@@ -1,3 +1,6 @@
+@extends('backend.admin.admin')
+
+@section('content')
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
@@ -9,11 +12,13 @@
         </p>
     </header>
 
+    <!-- Send verification email form -->
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <!-- Update profile information form -->
+    <form method="post" action="{{ route('admin.profile.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
@@ -62,3 +67,4 @@
         </div>
     </form>
 </section>
+@endsection

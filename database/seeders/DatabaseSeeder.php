@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesSeeder::class);
 
         // Find the Admin role
-        $adminRole = Role::where('name', 'Admin')->firstOrFail();
+        $adminRole = Role::where('role', 'Admin')->firstOrFail();
 
         // Create the default Admin user
         User::updateOrCreate(
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Mehedi Hasan',
                 'password' => bcrypt('password'), // Use a secure password
-                'role_id' => $adminRole->id, // Assign the Admin role
+                'role' => 'Admin', // Assign the Admin role
             ]
         );
     }

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -26,7 +28,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => 1, // Default role for new users (e.g., 'User')
+            'role_id' => 1, // Default role for new users
         ]);
 
         return redirect()->route('login');
@@ -56,7 +58,7 @@ class UserController extends Controller
     // Show user profile
     public function showProfile()
     {
-        return view('profile.edit');
+        return view('profile');
     }
 
     // Update user profile
